@@ -1,60 +1,62 @@
-from project.problem import Problem
+"""
+Formális Nyelvek – Házi feladat keretrendszer
+==============================================
+
+Futtatás (a python-starter mappából!):
+    python -m project --input <bemeneti_fájl> --output <kimeneti_fájl> --check <szó/szavak>
+
+Példa:
+    python -m project --input input_file1.txt --output output_file1.txt --check abb
+    python -m project --input input_file1.txt --output output_file1.txt --check a,ab,abb
+
+Kapcsolók:
+    --input   : bemeneti fájl (automata leírása)
+    --output  : kimeneti fájl (eredmények)
+    --check   : ellenőrzendő szó vagy szavak (vesszővel elválasztva, szóközök nélkül)
+    --sum     : (példa) összeadás feladat
+"""
+
 import argparse
-import importlib
-import pkgutil
+import sys
 
-class Main(object):
+from .problems import DFAProblem, SumProblem
 
-    def __init__(self):
-        self.problems = []
 
-    def load_problems(self):
-        """
-        Load all the problems from the problems package
-        """
-        package = 'project.problems'
+def parse_args():
+    """Parancssori argumentumok feldolgozása."""
+    parser = argparse.ArgumentParser(
+        description="Formális Nyelvek – automata szimulátor"
+    )
+    parser.add_argument("--input",  required=True, help="Bemeneti fájl neve")
+    parser.add_argument("--output", required=True, help="Kimeneti fájl neve")
 
-        for _, module_name, _ in pkgutil.iter_modules([package.replace('.', '/')]):
-            module = importlib.import_module(f"{package}.{module_name}")
+    # Feladatkapcsolók – minden feladathoz külön flag
+    parser.add_argument("--check", type=str, default=None,
+                        help="Ellenőrzendő szó(k), vesszővel elválasztva (pl. abb vagy a,ab,abb)")
+    parser.add_argument("--sum",   action="store_true", default=False,
+                        help="Összeadás feladat futtatása (példa)")
 
-            for attribute_name in dir(module):
-                attribute = getattr(module, attribute_name)
+    return parser.parse_args()
 
-                if isinstance(attribute, type) and issubclass(attribute, Problem) and attribute is not Problem:
-                    self.problems.append(attribute())
-    
-    def initialize_parser(self):
-        """
-        Initialize the parser by adding the necessary arguments
-        of all the problems
-        """
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--input', help='input file')
-        parser.add_argument('--output', help='output file')
 
-        for problem in self.problems:
-            problem.initialize_parser(parser)
+def main():
+    args = parse_args()
 
-        return parser
+    # Feladat kiválasztása az aktív kapcsoló alapján
+    if args.check is not None:
+        # 1. feladat: DFA szimuláció
+        problem = DFAProblem()
+        problem.run(args, args.input, args.output)
 
-    def run(self):
-        # First, load the problems
-        self.load_problems()
+    elif args.sum:
+        # Példa feladat: összeadás
+        problem = SumProblem()
+        problem.run(args, args.input, args.output)
 
-        # Then, initialize the parser
-        parser = self.initialize_parser()
-        args = parser.parse_args()
+    else:
+        print("Hiba: Adjon meg legalább egy feladatkapcsolót (pl. --check <szó>)!")
+        sys.exit(1)
 
-        # Find the problem that is chosen
-        for problem in self.problems:
-            if problem.is_chosen_problem(args):
-                # Run the chosen problem
-                problem.run(args)
-                return
-    
-        # No problem was chosen
-        parser.print_help()
 
-if __name__ == '__main__':
-    main = Main()
-    main.run()
+if __name__ == "__main__":
+    main()

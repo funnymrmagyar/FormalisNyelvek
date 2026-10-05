@@ -1,38 +1,22 @@
-from project.problem import Problem
-import argparse
+# Példa feladat: vesszővel elválasztott számok összeadása.
+# Bemenet:  egy sor, pl. "3,5,7"
+# Kimenet:  az összeg,  pl. "15"
+#
+# Futtatás:
+#   python -m project --input input_file1.txt --output output_file1.txt --sum
 
-class SumProblem(Problem):
+from .problem import Problems
 
-    def initialize_parser(self, parser: argparse.ArgumentParser):
-        """
-        Initialize the parser with the necessary arguments
-        """
-        parser.add_argument('--sum', help='sum the given numbers', action='store_true')
-    
-    def is_chosen_problem(self, args):
-        """
-        Check if the problem is chosen
-        """
-        return bool(args.sum)
 
-    def run(self, args):
-        """
-        Run the program
-        """
-        # Access the input and output file paths
-        input_file = args.input
-        output_file = args.output
+class SumProblem(Problems):
+    """Összeadja a bemeneti fájlban vesszővel elválasztott számokat."""
 
-        # Read the numbers
-        with open(input_file, 'r') as f:
-            data = f.read()
-            
-        numbers = data.split(',')
-        numbers = [int(number) for number in numbers]
+    def run(self, args, input_file: str, output_file: str):
+        with open(input_file, "r", encoding="utf-8") as f:
+            line = f.readline().strip()
 
-        # Process the numbers
+        numbers = [int(x) for x in line.split(",")]
         result = sum(numbers)
 
-        # Write the result into the file
-        with open(output_file, 'w') as f:
-            f.write(str(result))
+        with open(output_file, "w", encoding="utf-8") as f:
+            f.write(str(result) + "\n")
