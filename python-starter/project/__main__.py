@@ -20,6 +20,7 @@ import argparse
 import sys
 
 from .problems import DFAProblem, SumProblem
+from .problems import DFAProblem, SumProblem, Determinization
 
 
 def parse_args():
@@ -35,6 +36,8 @@ def parse_args():
                         help="Ellenőrzendő szó(k), vesszővel elválasztva (pl. abb vagy a,ab,abb)")
     parser.add_argument("--sum",   action="store_true", default=False,
                         help="Összeadás feladat futtatása (példa)")
+    parser.add_argument("--det",   action="store_true", default=False,
+                        help="Véges automata determinizálása (példa)")
 
     return parser.parse_args()
 
@@ -52,6 +55,11 @@ def main():
         # Példa feladat: összeadás
         problem = SumProblem()
         problem.run(args, args.input, args.output)
+        
+    elif args.det:
+       # 2. feladat: determinizálás
+       problem = Determinization()
+       problem.run(args, args.input, args.output)
 
     else:
         print("Hiba: Adjon meg legalább egy feladatkapcsolót (pl. --check <szó>)!")
