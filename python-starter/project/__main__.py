@@ -21,6 +21,7 @@ import sys
 
 from .problems import DFAProblem, SumProblem
 from .problems import DFAProblem, SumProblem, Determinization
+from .problems import DFAProblem, SumProblem, Determinization, Minimization
 
 
 def parse_args():
@@ -38,7 +39,8 @@ def parse_args():
                         help="Összeadás feladat futtatása (példa)")
     parser.add_argument("--det",   action="store_true", default=False,
                         help="Véges automata determinizálása (példa)")
-
+    parser.add_argument("--mini", action="store_true", default=False,
+                         help="Automata minimalizálása")
     return parser.parse_args()
 
 
@@ -60,6 +62,9 @@ def main():
        # 2. feladat: determinizálás
        problem = Determinization()
        problem.run(args, args.input, args.output)
+    elif args.mini:
+         problem = Minimization()
+         problem.run(args, args.input, args.output)
 
     else:
         print("Hiba: Adjon meg legalább egy feladatkapcsolót (pl. --check <szó>)!")

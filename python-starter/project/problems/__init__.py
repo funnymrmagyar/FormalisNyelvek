@@ -5,3 +5,4 @@ from .problem import Problems
 from .sum import SumProblem
 from .dfa import DFAProblem
 from .det import Determinization
+from .mini import Minimization
