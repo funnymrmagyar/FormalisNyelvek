@@ -46,11 +46,11 @@ def task1(lines):
             c[5] += 1
         if re.fullmatch(r"W", level) and re.fullmatch(r"PackageManager\s*", tag):
             c[6] += 1
-        if re.fullmatch(r"D", level) and re.match(r"ExoPlayer", tag):
+        if re.fullmatch(r"D", level) and re.search(r"ExoPlayer", line):
             c[7] += 1
         if re.fullmatch(r"[EW]", level) and re.search(r"\.java:", line):
             c[8] += 1
-        if msg and re.search(r"\bThread\b", msg):
+        if msg and re.search(r"Thread", msg):
             c[9] += 1
     return [str(x) for x in c]
 
