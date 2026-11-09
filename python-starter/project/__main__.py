@@ -22,6 +22,7 @@ import sys
 from .problems import DFAProblem, SumProblem
 from .problems import DFAProblem, SumProblem, Determinization
 from .problems import DFAProblem, SumProblem, Determinization, Minimization
+from .problems import DFAProblem, SumProblem, Determinization, Minimization, RegexProblem
 
 
 def parse_args():
@@ -41,6 +42,8 @@ def parse_args():
                         help="Véges automata determinizálása (példa)")
     parser.add_argument("--mini", action="store_true", default=False,
                          help="Automata minimalizálása")
+    parser.add_argument("--rgx", type=int, default=None,
+                        help="Regex feladat száma (1-5)") 
     return parser.parse_args()
 
 
@@ -65,7 +68,9 @@ def main():
     elif args.mini:
          problem = Minimization()
          problem.run(args, args.input, args.output)
-
+    elif args.rgx is not None:
+         problem = RegexProblem()
+         problem.run(args, args.input, args.output)
     else:
         print("Hiba: Adjon meg legalább egy feladatkapcsolót (pl. --check <szó>)!")
         sys.exit(1)

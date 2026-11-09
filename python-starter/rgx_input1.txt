@@ -1,0 +1,24 @@
+--------- beginning of main
+10-15 10:18:51.254   601   601 E InputManager-JNI: java.lang.IllegalStateException: Input channel not registered
+10-15 10:18:51.254   601   601 E InputManager-JNI: 	at java.util.HashMap.putMapEntries(HashMap.java:500)
+10-15 10:18:51.255   601   601 E InputManager-JNI: 	at com.android.server.input.InputManagerService.nativeInit(InputManagerService.java:312)
+10-15 10:18:51.300   221   221 I lowmemorykiller: Using in-kernel low memory killer interface
+10-15 10:18:51.301   221   230 D lowmemorykiller: Kill 'com.example.app' (1234), uid 10045, oom_adj 906
+10-15 10:18:51.410   892   910 W PackageManager: Failure retrieving resources for com.example.app
+10-15 10:18:51.512   892   892 W PackageManager: Unknown permission android.permission.FOO in package com.example (PackageManagerService.java:1180)
+10-15 10:18:52.001  1203  1250 D ExoPlayerImpl: Init 2f1a3b [ExoPlayerLib/2.11.3] [generic_x86, Android SDK, Google, 29]
+10-15 10:18:52.105  1203  1251 D ExoPlayerImpl: Release 2f1a3b [ExoPlayerLib/2.11.3]
+10-15 10:19:51.120  1203  1203 E ExoPlayerImplInternal: Playback error
+10-15 10:19:51.121  1203  1203 E ExoPlayerImplInternal: 	at com.google.android.exoplayer2.ExoPlayerImplInternal.handleMessage(ExoPlayerImplInternal.java:350)
+10-15 10:19:51.122  1203  1203 E ExoPlayerImplInternal: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+10-15 10:20:03.400  1203  1260 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+10-15 10:20:03.500   892  1001 I ActivityManager: Start proc 4521:com.example.app/u0a45 for activity
+10-15 10:20:51.777  4521  4535 E AndroidRuntime: FATAL EXCEPTION: Thread-7
+10-15 10:20:51.778  4521  4535 E AndroidRuntime: 	at com.example.app.Worker.run(Worker.java:42)
+10-15 10:20:51.779  4521  4535 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:764)
+10-15 10:21:10.010   601   620 V InputDispatcher: Dropping event because there is no touched window
+10-16 08:00:51.000   221   221 I lowmemorykiller: Reclaimed 4096kB, cache(52540kB) and free(10020kB)
+10-16 08:01:02.250   892   892 E PackageManager: Package com.foo has no signatures
+10-16 08:01:02.300  1203  1203 F libc: Fatal signal 11 (SIGSEGV), code 1, fault addr 0x0 in tid 1203 (main)
+10-16 08:01:02.310  1203  1203 E AudioTrack: start() status -32
+10-16 08:01:03.000  4521  4521 I Choreographer: Skipped 31 frames!  The application may be doing too much work on its main thread.
